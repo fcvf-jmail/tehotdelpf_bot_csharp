@@ -2,7 +2,6 @@
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
 
 class Program
 {
@@ -21,9 +20,18 @@ class Program
 
         // Настройка обработчика обновлений
         using var cts = new CancellationTokenSource();
+
+        // Обработка сигналов завершения (SIGTERM, Ctrl+C)
+        AppDomain.CurrentDomain.ProcessExit += (s, e) => cts.Cancel();
+        Console.CancelKeyPress += (s, e) =>
+        {
+            e.Cancel = true; // Предотвращаем немедленное завершение
+            cts.Cancel();
+        };
+
         var receiverOptions = new ReceiverOptions
         {
-            AllowedUpdates = Array.Empty<UpdateType>() // Все типы обновлений
+            AllowedUpdates = [] // Все типы обновлений
         };
 
         // Запуск получения обновлений
@@ -43,8 +51,15 @@ class Program
             new BotCommand { Command = "getid", Description = "Получить ID чата" }
         ]);
 
-        // Бесконечный цикл для поддержания работы программы
-        Console.ReadLine();
+        try
+        {
+            // Ожидание завершения (вместо Console.ReadLine)
+            await Task.Delay(Timeout.Infinite, cts.Token);
+        }
+        catch (TaskCanceledException)
+        {
+            Console.WriteLine("Bot is shutting down...");
+        }
 
         // Отмена получения обновлений
         cts.Cancel();
