@@ -1,0 +1,1 @@
+Service: /etc/systemd/system/tehotdelpf-bot.service
