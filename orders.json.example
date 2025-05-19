@@ -1,0 +1,30 @@
+[
+    {
+        "OrderId": 1,
+        "ChatId": 7879236491,
+        "Domains": [
+            "dom.ru"
+        ],
+        "Answer": "Проект запущен",
+        "AdminsMessage": {
+            "ChatId": -4102655921,
+            "MessageId": 37,
+            "ButtonText": "Проект запущен",
+            "ButtonTouched": true
+        }
+    },
+    {
+        "OrderId": 2,
+        "ChatId": 7879236491,
+        "Domains": [
+            "dom.ru"
+        ],
+        "Answer": "Тест запущен",
+        "AdminsMessage": {
+            "ChatId": -4102655921,
+            "MessageId": 48,
+            "ButtonText": "Тест запущен",
+            "ButtonTouched": true
+        }
+    }
+]
